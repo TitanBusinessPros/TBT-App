@@ -95,6 +95,11 @@
     .tool-card a:hover, .tool-card a:focus-visible { transform: translateY(-5px); box-shadow: 0 10px 24px #f130a544; }
     .tool-card a:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
     .tool-card img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #241a28; }
+    .promo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .promo-card { display: flex; align-items: center; min-width: 0; padding: .75rem; border: 1px solid #ffae8060; border-radius: 24px; background: #ffffff0d; box-shadow: 0 18px 32px #0003; transition: transform .2s ease, box-shadow .2s ease; }
+    .promo-card:hover, .promo-card:focus-visible { transform: translateY(-5px); box-shadow: 0 12px 32px #f130a544; }
+    .promo-card:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+    .promo-card img { display: block; width: 100%; height: auto; }
     footer { padding: 2.5rem 1rem; border-top: 1px solid #ffae8060; background: #151219; text-align: center; }
     footer strong { display: block; font-size: 1.5rem; color: var(--orange); }
     footer p { margin: .4rem 0; }
@@ -102,6 +107,7 @@
     .copyright { margin-top: 1.5rem; color: var(--muted); font-size: .9rem; }
     @media (max-width: 800px) {
       .grid-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .promo-row { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
       .spotlight { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; }
       .spotlight-card--featured { order: -1; }
     }
@@ -157,6 +163,11 @@
       <div class="tool-card"><a href="https://titanbusinesspros.github.io/T-11/" aria-label="Open business tool 11" target="_blank" rel="noopener noreferrer"><img src="https://github.com/TitanBusinessPros/MWO-SB/raw/main/EHM-T.png" alt="Business tool 11" loading="lazy"></a></div>
       <div class="tool-card"><a href="https://titanbusinesspros.github.io/T-12/" aria-label="Open event tool" target="_blank" rel="noopener noreferrer"><img src="https://github.com/TitanBusinessPros/MWO-SB/raw/main/event-1.png" alt="Event tool" loading="lazy"></a></div>
     </div>
+    <section class="promo-row" aria-label="Get started with Titan Business Pros">
+      <a class="promo-card" href="get-started.html"><img src="t1.png" alt="We make apps and websites starting at $25" loading="lazy"></a>
+      <a class="promo-card" href="get-started.html"><img src="t2.png" alt="Need ongoing marketing? We provide long-term marketing" loading="lazy"></a>
+      <a class="promo-card" href="get-started.html"><img src="t3.png" alt="Most affordable apps and websites in the nation" loading="lazy"></a>
+    </section>
   </main>
 
   <footer>
