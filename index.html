@@ -40,6 +40,21 @@
     h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; }
     .subtitle { margin: 1rem auto 0; max-width: 680px; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted); }
     main { padding: 2rem 0 4rem; }
+    .featured-tool {
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      padding: 1.5rem;
+      border: 2px solid #21c9f6;
+      border-radius: 28px;
+      background: radial-gradient(circle at top, #15406c99, #ffffff0d 72%);
+      box-shadow: 0 0 32px #13bdf944, 0 18px 32px #0003;
+      text-align: center;
+    }
+    .featured-tool-label { display: block; margin-bottom: 1rem; color: #7ee8ff; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .featured-tool a { display: block; width: min(100%, 420px); margin: auto; border-radius: 20px; transition: transform .2s ease, box-shadow .2s ease; }
+    .featured-tool a:hover, .featured-tool a:focus-visible { transform: translateY(-5px); box-shadow: 0 12px 32px #13bdf955; }
+    .featured-tool a:focus-visible { outline: 3px solid #7ee8ff; outline-offset: 5px; }
+    .featured-tool img { display: block; width: 100%; height: auto; border-radius: 20px; }
     .grid-container { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
     .tool-card {
       min-width: 0;
@@ -71,6 +86,12 @@
   </header>
 
   <main class="container">
+    <section class="featured-tool" aria-label="Featured tool">
+      <span class="featured-tool-label">Featured Tool</span>
+      <a href="https://titanbusinesspros.github.io/TTB-App/" aria-label="Open Titan Team Task Board" target="_blank" rel="noopener noreferrer">
+        <img src="TTTB-Logo.png" alt="Titan Team Task Board" loading="eager">
+      </a>
+    </section>
     <div class="grid-container" aria-label="Free small business tools">
       <div class="tool-card"><a href="qr-code.html" aria-label="Open Titan QR code maker"><img src="https://github.com/TitanBusinessPros/MWO-SB/raw/main/QR-T.png" alt="QR code maker" loading="lazy"></a></div>
       <div class="tool-card"><a href="https://titanbusinesspros.github.io/T-2/" aria-label="Open digital business card maker" target="_blank" rel="noopener noreferrer"><img src="https://github.com/TitanBusinessPros/MWO-SB/raw/main/Digital%20Business%20Card%20Maker.png" alt="Digital business card maker" loading="lazy"></a></div>
