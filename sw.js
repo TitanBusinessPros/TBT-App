@@ -1,8 +1,12 @@
-const CACHE_NAME = 'titan-tools-v1';
+const CACHE_NAME = 'titan-tools-v2';
 const CORE_FILES = [
   './',
   'index.html',
   'qr-code.html',
+  'get-started.html',
+  'terms.html',
+  'privacy.html',
+  'legal.css',
   'app.js',
   'qrcode.min.js',
   'site.webmanifest',

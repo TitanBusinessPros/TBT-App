@@ -334,6 +334,10 @@
             gap: 1rem;
         }
 
+        .legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.25rem; }
+        .legal-links a { color: #9cfcff; }
+        .legal-links a:hover, .legal-links a:focus-visible { color: #fff; }
+
         @keyframes pulse {
             0% {
                 text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
@@ -461,6 +465,7 @@
             <p><a href="tel:+14059987979">405-998-7979</a> | <a href="mailto:titanbusinesspros@gmail.com">titanbusinesspros@gmail.com</a></p>
             <p><a href="https://www.oklahoma.marketing/">www.oklahoma.marketing</a></p>
             <p>Oklahoma City, OK</p>
+            <nav class="legal-links" aria-label="Legal information"><a href="terms.html">Terms and Conditions</a><a href="privacy.html">Privacy Policy</a></nav>
             <p>&copy; 2026 Titan Business Pros LLC. All rights reserved.</p>
         </div>
     </footer>
