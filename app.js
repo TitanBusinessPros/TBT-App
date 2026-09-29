@@ -8,11 +8,40 @@
   let registration = null;
   let updateRequested = false;
   let reloading = false;
+  const loadedMarkup = document.documentElement.outerHTML;
+  const loadedModified = Date.parse(document.lastModified);
   const installed = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  if (installed) installButton.hidden = true;
+  installButton.hidden = installed;
+  updateButton.hidden = true;
 
   function showStatus(message) {
     status.textContent = message;
+  }
+
+  function showAvailableUpdate() {
+    if (!installed || updateRequested) return;
+    updateButton.hidden = false;
+    showStatus('A new version is available.');
+  }
+
+  async function checkForUpdates() {
+    if (!installed || !navigator.onLine || updateRequested) return;
+    try {
+      const url = new URL(window.location.pathname, window.location.origin);
+      url.searchParams.set('update-check', Date.now().toString());
+      const response = await fetch(url.href, { cache: 'no-store' });
+      if (!response.ok) return;
+      const remoteModified = Date.parse(response.headers.get('Last-Modified'));
+      const remoteMarkup = new DOMParser().parseFromString(await response.text(), 'text/html').documentElement.outerHTML;
+      if ((Number.isFinite(loadedModified) && Number.isFinite(remoteModified) && remoteModified > loadedModified + 1000) || remoteMarkup !== loadedMarkup) {
+        showAvailableUpdate();
+      } else if (!registration || !registration.waiting) {
+        updateButton.hidden = true;
+        if (status.textContent === 'A new version is available.') showStatus('');
+      }
+    } catch {
+      // Keep the current app available when an update check cannot reach the site.
+    }
   }
 
   function reloadFresh() {
@@ -54,13 +83,15 @@
   });
 
   updateButton.addEventListener('click', async () => {
+    if (!installed || updateButton.hidden || updateRequested) return;
     if (!navigator.onLine) {
       showStatus('Connect to the internet to update the app.');
       return;
     }
     updateRequested = true;
+    updateButton.hidden = true;
     updateButton.disabled = true;
-    showStatus('Checking for the latest version...');
+    showStatus('Updating the app...');
     try {
       if (registration) {
         await registration.update();
@@ -75,6 +106,7 @@
     } catch {
       updateRequested = false;
       updateButton.disabled = false;
+      updateButton.hidden = false;
       showStatus('Could not update right now. Please try again.');
     }
   });
@@ -85,16 +117,25 @@
     });
     navigator.serviceWorker.register('sw.js', { scope: './', updateViaCache: 'none' }).then((workerRegistration) => {
       registration = workerRegistration;
-      if (registration.waiting && navigator.serviceWorker.controller) showStatus('An update is ready. Press Update App.');
+      if (installed && registration.waiting && navigator.serviceWorker.controller) showAvailableUpdate();
       registration.addEventListener('updatefound', () => {
         const worker = registration.installing;
         if (!worker) return;
         worker.addEventListener('statechange', () => {
-          if (worker.state !== 'installed' || !registration.waiting || !navigator.serviceWorker.controller) return;
+          if (worker.state !== 'installed' || !registration.waiting || !navigator.serviceWorker.controller || !installed) return;
           if (updateRequested) activateUpdate();
-          else showStatus('An update is ready. Press Update App.');
+          else showAvailableUpdate();
         });
       });
     }).catch(() => showStatus('App installation is unavailable right now.'));
+  }
+
+  if (installed) {
+    checkForUpdates();
+    setInterval(checkForUpdates, 5 * 60 * 1000);
+    window.addEventListener('online', checkForUpdates);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) checkForUpdates();
+    });
   }
 })();
