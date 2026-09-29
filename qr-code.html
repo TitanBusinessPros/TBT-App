@@ -52,7 +52,9 @@
             margin: 0 auto;
         }
 
-        .back-link { display: inline-block; margin-bottom: 1.5rem; color: var(--primary); }
+        .back-link { display: inline-block; margin-bottom: 1.5rem; padding: .7rem 1.1rem; border-radius: 999px; background: var(--primary); color: var(--dark); font-weight: 700; text-decoration: none; box-shadow: 0 6px 18px #0006; }
+        .back-link:hover, .back-link:focus-visible { background: #9cfcff; }
+        .back-link:focus-visible { outline: 3px solid var(--secondary); outline-offset: 4px; }
         .brand-logo { display: block; width: min(160px, 40vw); height: auto; margin: 0 auto 1.5rem; border-radius: 18px; }
         .app-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; }
         .app-controls [hidden] { display: none; }
@@ -371,7 +373,7 @@
     <div class="grid-lines"></div>
     <div class="container">
         <header>
-            <a class="back-link" href="index.html">&larr; All free tools</a>
+            <a class="back-link" href="index.html">&larr; Back to Main Menu</a>
             <img class="brand-logo" src="Titan%20Logo-2.png" alt="Titan Business Pros logo" width="1024" height="1024">
             <h1>Titan Business Pros</h1>
             <p class="subtitle">Generate futuristic QR codes in seconds</p>

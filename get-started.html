@@ -16,6 +16,8 @@
     a:focus-visible { outline: 3px solid #7ee8ff; outline-offset: 5px; }
     header { padding: 2.5rem 1rem 0; text-align: center; }
     .logo { display: block; width: min(260px, 60vw); height: auto; margin: auto; border-radius: 24px; }
+    .menu-button { display: inline-block; margin-top: 1rem; padding: .65rem 1.1rem; border-radius: 999px; background: #3b2037; border: 1px solid var(--orange); color: var(--text); font-weight: 700; text-decoration: none; }
+    .menu-button:hover, .menu-button:focus-visible { background: #633153; }
     main { width: min(100% - 2rem, 820px); flex: 1; margin: 0 auto; padding: 1.5rem 0 4rem; text-align: center; }
     h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; }
     .hero-contact { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 2rem auto; }
@@ -39,6 +41,7 @@
 <body>
   <header>
     <a href="index.html" aria-label="Back to Titan Business Pros tools"><img class="logo" src="Titan%20Logo-2.png" alt="Titan Business Pros logo" width="1024" height="1024"></a>
+    <a class="menu-button" href="index.html">&larr; Back to Main Menu</a>
   </header>
   <main>
     <h1>Call or text us to get started</h1>
