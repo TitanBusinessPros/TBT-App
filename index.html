@@ -46,6 +46,14 @@
     .logo { display: block; width: min(380px, 72vw); height: auto; margin: 0 auto 1.5rem; border-radius: 24px; }
     h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; }
     .subtitle { margin: 1rem auto 0; max-width: 680px; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted); }
+    .hero-contact { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 2rem auto .5rem; }
+    .hero-phone { display: inline-block; color: #fff; font-size: clamp(2rem, 7vw, 4.25rem); font-weight: 800; line-height: 1.1; letter-spacing: .01em; text-decoration: none; text-shadow: 0 0 24px #f130a588, 0 8px 22px #0008; animation: phone-float 3s ease-in-out infinite; }
+    .hero-phone:hover, .hero-phone:focus-visible { color: #ffb678; }
+    .website-button { display: inline-block; padding: .8rem 1.5rem; border-radius: 999px; background: var(--orange); color: #221825; font-weight: 800; text-decoration: none; box-shadow: 0 8px 22px #0005; transition: transform .2s ease, background .2s ease; }
+    .website-button:hover, .website-button:focus-visible { background: #ffb678; transform: translateY(-2px); }
+    .hero-contact a:focus-visible { outline: 3px solid #7ee8ff; outline-offset: 5px; }
+    @keyframes phone-float { 50% { transform: translateY(-9px); } }
+    @media (prefers-reduced-motion: reduce) { .hero-phone { animation: none; } }
     .app-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin: 1.5rem auto .25rem; }
     .app-controls button { padding: .75rem 1.25rem; border: 1px solid var(--orange); border-radius: 999px; background: #3b2037; color: var(--text); font: inherit; font-weight: 700; cursor: pointer; }
     .app-controls button:hover, .app-controls button:focus-visible { background: #633153; }
@@ -105,6 +113,10 @@
     <img class="logo" src="Titan%20Logo-2.png" alt="Titan Business Pros logo" width="1024" height="1024">
     <h1>Free Small Business Tools</h1>
     <p class="subtitle">Practical tools to help you create, promote, and manage your business. Explore the collection from Titan Business Pros.</p>
+    <div class="hero-contact">
+      <a class="hero-phone" href="tel:+14059987979" aria-label="Call Titan Business Pros at 405-998-7979">405-998-7979</a>
+      <a class="website-button" href="https://www.titanbusinesspros.com/">Visit Our Website</a>
+    </div>
     <div class="app-controls">
       <button id="install-app" type="button" hidden>Install App</button>
       <button id="update-app" type="button" hidden>Update App</button>
