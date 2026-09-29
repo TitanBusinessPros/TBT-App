@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Business Pros - QR Generator</title>
+    <meta name="description" content="Create and download website or contact QR codes with the free Titan Business Pros QR code maker.">
+    <link rel="icon" type="image/png" href="Titan%20Logo-2.png">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #00f7ff;
+            --secondary: #ff00c8;
+            --accent: #9600ff;
+            --dark: #0a0e17;
+            --darker: #05070c;
+            --text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 200, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .back-link { display: inline-block; margin-bottom: 1.5rem; color: var(--primary); }
+        .brand-logo { display: block; width: min(160px, 40vw); height: auto; margin: 0 auto 1.5rem; border-radius: 18px; }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            color: var(--primary);
+            animation: pulse 2s infinite alternate;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 5px var(--secondary);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: rgba(19, 26, 41, 0.7);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .tab.active {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .tab.active::after {
+            transform: translateX(0);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover::before {
+            transform: rotate(45deg) translate(20%, 20%);
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 15px var(--primary), 0 0 30px var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            margin-top: 1rem;
+        }
+
+        .output-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-container {
+            background: rgba(19, 26, 41, 0.7);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #qrcode {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #qrcode::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 48%,
+                rgba(0, 247, 255, 0.1) 50%,
+                transparent 52%
+            );
+            background-size: 150% 150%;
+            animation: scan 2s linear infinite;
+            pointer-events: none;
+        }
+
+        .qr-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .style-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        .style-option {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .style-option:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .style-option.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            background: rgba(0, 247, 255, 0.1);
+        }
+
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            }
+            100% {
+                text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 45px var(--primary);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            background-image:
+                linear-gradient(rgba(0, 247, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 247, 255, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-lines"></div>
+    <div class="container">
+        <header>
+            <a class="back-link" href="index.html">&larr; All free tools</a>
+            <img class="brand-logo" src="Titan%20Logo-2.png" alt="Titan Business Pros logo" width="1024" height="1024">
+            <h1>Titan Business Pros</h1>
+            <p class="subtitle">Generate futuristic QR codes in seconds</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="tabs">
+                    <button class="tab active" data-tab="url">URL</button>
+                    <button class="tab" data-tab="contact">Contact</button>
+                </div>
+
+                <div class="tab-content active" id="url-tab">
+                    <div class="form-group">
+                        <label for="url-input">Website URL</label>
+                        <input type="url" id="url-input" placeholder="https://example.com" value="https://www.titanbusinesspros.com/">
+                    </div>
+                </div>
+
+                <div class="tab-content" id="contact-tab">
+                    <div class="form-group">
+                        <label for="name-input">Full Name</label>
+                        <input type="text" id="name-input" placeholder="John Smith">
+                    </div>
+                    <div class="form-group">
+                        <label for="company-input">Company</label>
+                        <input type="text" id="company-input" placeholder="TechCorp Inc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-input">Phone</label>
+                        <input type="tel" id="phone-input" placeholder="+1 (555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label for="email-input">Email</label>
+                        <input type="email" id="email-input" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="website-input">Website (optional)</label>
+                        <input type="url" id="website-input" placeholder="https://example.com">
+                    </div>
+                </div>
+
+                <button id="generate-btn" class="btn">Generate QR Code</button>
+
+                <div class="style-options">
+                    <div class="style-option active" data-style="default">
+                        <div class="color-preview" style="background: linear-gradient(45deg, #00f7ff, #ff00c8);"></div>
+                        <span>Neon Fusion</span>
+                    </div>
+                    <div class="style-option" data-style="cyber">
+                        <div class="color-preview" style="background: linear-gradient(45deg, #ff00c8, #9600ff);"></div>
+                        <span>Cyber Pink</span>
+                    </div>
+                    <div class="style-option" data-style="aqua">
+                        <div class="color-preview" style="background: linear-gradient(45deg, #00f7ff, #00ff6a);"></div>
+                        <span>Aqua Green</span>
+                    </div>
+                    <div class="style-option" data-style="sunset">
+                        <div class="color-preview" style="background: linear-gradient(45deg, #ffeb3b, #ff00c8);"></div>
+                        <span>Sunset Glow</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <div class="qr-container">
+                    <div id="qrcode"></div>
+                    <div class="qr-actions">
+                        <button id="download-btn" class="btn">Download</button>
+                        <button id="share-btn" class="btn">Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <strong>Titan Business Pros</strong>
+            <p><a href="tel:+14059987979">405-998-7979</a> | <a href="mailto:titanbusinesspros@gmail.com">titanbusinesspros@gmail.com</a></p>
+            <p><a href="https://www.oklahoma.marketing/">www.oklahoma.marketing</a></p>
+            <p>Oklahoma City, OK</p>
+            <p>&copy; 2026 Titan Business Pros LLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const generateBtn = document.getElementById('generate-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const shareBtn = document.getElementById('share-btn');
+            const styleOptions = document.querySelectorAll('.style-option');
+            const qrcodeDiv = document.getElementById('qrcode');
+
+            let currentStyle = 'default';
+            let currentQRCode = null;
+
+            // Tab switching
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+
+                    // Update active tab button
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Show corresponding tab content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-tab`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Style selection
+            styleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    styleOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    currentStyle = option.getAttribute('data-style');
+
+                    // Regenerate QR code with new style if one exists
+                    if (currentQRCode) {
+                        generateQRCode();
+                    }
+                });
+            });
+
+            // Generate QR code
+            generateBtn.addEventListener('click', generateQRCode);
+
+            function generateQRCode() {
+                // Clear previous QR code
+                qrcodeDiv.innerHTML = '';
+
+                let qrData = '';
+                const activeTab = document.querySelector('.tab.active').getAttribute('data-tab');
+
+                if (activeTab === 'url') {
+                    const url = document.getElementById('url-input').value.trim();
+                    if (!url) {
+                        alert('Please enter a valid URL');
+                        return;
+                    }
+                    qrData = url;
+                } else {
+                    const name = document.getElementById('name-input').value.trim();
+                    const company = document.getElementById('company-input').value.trim();
+                    const phone = document.getElementById('phone-input').value.trim();
+                    const email = document.getElementById('email-input').value.trim();
+                    const website = document.getElementById('website-input').value.trim();
+
+                    if (!name && !company && !phone && !email) {
+                        alert('Please enter at least one contact detail');
+                        return;
+                    }
+
+                    // Create vCard format
+                    qrData = 'BEGIN:VCARD\nVERSION:3.0\n';
+                    if (name) qrData += `FN:${name}\n`;
+                    if (company) qrData += `ORG:${company}\n`;
+                    if (phone) qrData += `TEL:${phone}\n`;
+                    if (email) qrData += `EMAIL:${email}\n`;
+                    if (website) qrData += `URL:${website}\n`;
+                    qrData += 'END:VCARD';
+                }
+
+                // Set colors based on selected style
+                let dotColor, backgroundColor;
+                switch(currentStyle) {
+                    case 'default':
+                        dotColor = '#00f7ff';
+                        backgroundColor = '#0a0e17';
+                        break;
+                    case 'cyber':
+                        dotColor = '#ff00c8';
+                        backgroundColor = '#0a0e17';
+                        break;
+                    case 'aqua':
+                        dotColor = '#00ff6a';
+                        backgroundColor = '#0a0e17';
+                        break;
+                    case 'sunset':
+                        dotColor = '#ffeb3b';
+                        backgroundColor = '#0a0e17';
+                        break;
+                    default:
+                        dotColor = '#00f7ff';
+                        backgroundColor = '#0a0e17';
+                }
+
+                // Generate QR code
+                QRCode.toCanvas(qrData, {
+                    width: 256,
+                    margin: 1,
+                    color: {
+                        dark: dotColor,
+                        light: backgroundColor
+                    }
+                }, function(err, canvas) {
+                    if (err) {
+                        console.error(err);
+                        alert('Error generating QR code');
+                        return;
+                    }
+
+                    qrcodeDiv.appendChild(canvas);
+                    currentQRCode = canvas;
+                });
+            }
+
+            // Download QR code
+            downloadBtn.addEventListener('click', function() {
+                if (!currentQRCode) {
+                    alert('Please generate a QR code first');
+                    return;
+                }
+
+                const link = document.createElement('a');
+                link.download = 'titanqr.png';
+                link.href = currentQRCode.toDataURL('image/png');
+                link.click();
+            });
+
+            // Share QR code (modern browsers only)
+            shareBtn.addEventListener('click', async function() {
+                if (!currentQRCode) {
+                    alert('Please generate a QR code first');
+                    return;
+                }
+
+                if (navigator.share) {
+                    try {
+                        const dataUrl = currentQRCode.toDataURL('image/png');
+                        const response = await fetch(dataUrl);
+                        const blob = await response.blob();
+                        const file = new File([blob], 'titanqr.png', { type: 'image/png' });
+
+                        await navigator.share({
+                            title: 'Titan Business Pros QR Code',
+                            text: 'Check out this futuristic QR code I created!',
+                            files: [file]
+                        });
+                    } catch (err) {
+                        console.error('Error sharing:', err);
+                    }
+                } else {
+                    alert('Web Share API not supported in your browser. You can download the QR code instead.');
+                }
+            });
+
+            // Generate a QR code on page load with default URL
+            generateQRCode();
+        });
+    </script>
+</body>
+</html>
