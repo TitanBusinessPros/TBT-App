@@ -14,7 +14,14 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://titanbusinesspros.github.io/TBT-App/Titan%20Logo-2.png">
   <title>Free Small Business Tools | Titan Business Pros</title>
-  <link rel="icon" type="image/png" href="Titan%20Logo-2.png">
+  <meta name="theme-color" content="#221825">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Titan Tools">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <script src="app.js" defer></script>
   <style>
     :root {
       color-scheme: dark;
@@ -39,6 +46,12 @@
     .logo { display: block; width: min(380px, 72vw); height: auto; margin: 0 auto 1.5rem; border-radius: 24px; }
     h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; }
     .subtitle { margin: 1rem auto 0; max-width: 680px; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted); }
+    .app-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin: 1.5rem auto .25rem; }
+    .app-controls button { padding: .75rem 1.25rem; border: 1px solid var(--orange); border-radius: 999px; background: #3b2037; color: var(--text); font: inherit; font-weight: 700; cursor: pointer; }
+    .app-controls button:hover, .app-controls button:focus-visible { background: #633153; }
+    .app-controls button:disabled { opacity: .6; cursor: wait; }
+    .app-controls [hidden] { display: none; }
+    .app-status { min-height: 1.5em; margin: .5rem auto 0; color: var(--muted); font-size: .9rem; }
     main { padding: 2rem 0 4rem; }
     .spotlight { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 1.25rem; align-items: stretch; margin-bottom: 2.5rem; }
     .spotlight-card {
@@ -92,6 +105,11 @@
     <img class="logo" src="Titan%20Logo-2.png" alt="Titan Business Pros logo" width="1024" height="1024">
     <h1>Free Small Business Tools</h1>
     <p class="subtitle">Practical tools to help you create, promote, and manage your business. Explore the collection from Titan Business Pros.</p>
+    <div class="app-controls">
+      <button id="install-app" type="button">Install App</button>
+      <button id="update-app" type="button">Update App</button>
+    </div>
+    <p id="app-status" class="app-status" role="status" aria-live="polite"></p>
   </header>
 
   <main class="container">

@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titan Business Pros - QR Generator</title>
     <meta name="description" content="Create and download website or contact QR codes with the free Titan Business Pros QR code maker.">
-    <link rel="icon" type="image/png" href="Titan%20Logo-2.png">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <meta name="theme-color" content="#221825">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Titan Tools">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <script src="qrcode.min.js"></script>
+    <script src="app.js" defer></script>
     <style>
         :root {
             --primary: #00f7ff;
@@ -47,6 +54,10 @@
 
         .back-link { display: inline-block; margin-bottom: 1.5rem; color: var(--primary); }
         .brand-logo { display: block; width: min(160px, 40vw); height: auto; margin: 0 auto 1.5rem; border-radius: 18px; }
+        .app-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; }
+        .app-controls [hidden] { display: none; }
+        .app-controls button:disabled { opacity: 0.6; cursor: wait; }
+        .app-status { min-height: 1.5em; margin-top: 0.75rem; color: var(--text); font-size: 0.9rem; }
 
         header {
             text-align: center;
@@ -364,6 +375,11 @@
             <img class="brand-logo" src="Titan%20Logo-2.png" alt="Titan Business Pros logo" width="1024" height="1024">
             <h1>Titan Business Pros</h1>
             <p class="subtitle">Generate futuristic QR codes in seconds</p>
+            <div class="app-controls">
+                <button id="install-app" class="btn" type="button">Install App</button>
+                <button id="update-app" class="btn" type="button">Update App</button>
+            </div>
+            <p id="app-status" class="app-status" role="status" aria-live="polite"></p>
         </header>
 
         <div class="main-content">
